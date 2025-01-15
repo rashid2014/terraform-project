@@ -10,14 +10,14 @@ terraform {
 }
 
 provider "aws" {
-  region = "ca-central-1"
+  region = var.region
 }
 
 resource "aws_instance" "app_server" {
-  ami                    = "ami-004d18eae1ef10a65"
-  instance_type          = "t2.micro"
-  vpc_security_group_ids = ["sg-0c99e27afc962366d"]
-  subnet_id              = "subnet-024e23b0d4ba53004"
+  ami                    = var.ami
+  instance_type          = var.instance_type
+  vpc_security_group_ids = [var.vpc_security_group_id]
+  subnet_id              = var.subnet_id
 
   tags = {
     Name = "ExampleAppServerInstance"
@@ -25,10 +25,10 @@ resource "aws_instance" "app_server" {
 }
 
 resource "aws_instance" "web_server" {
-  ami                    = "ami-004d18eae1ef10a65"
-  instance_type          = "t2.micro"
-  vpc_security_group_ids = ["sg-0c99e27afc962366d"]
-  subnet_id              = "subnet-024e23b0d4ba53004"
+  ami                    = var.ami
+  instance_type          = var.instance_type
+  vpc_security_group_ids = [var.vpc_security_group_id]
+  subnet_id              = var.subnet_id
 
   tags = {
     Name = "ExampleAppServerInstance"
@@ -36,7 +36,7 @@ resource "aws_instance" "web_server" {
 }
 
 resource "aws_s3_bucket" "mybucket" {
-  bucket = "harunmetroc14jan2025"
+  bucket = var.bucket_name
 
   tags = {
     Name        = "My bucket"
